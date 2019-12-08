@@ -10,18 +10,35 @@ export default class FormPopup extends LitElement {
             number: 0
         };
         this.popupOpen = false;
+        this.formData = {};
+        this.change = this.change.bind(this);
     }
 
     static get properties() {
         return {
             total: Object,
-            popupOpen: Boolean
+            popupOpen: {
+                type: Boolean,
+                value: false,
+                notify: false
+            },
+            formData: Object
         }
     }
 
-
     firstUpdated(changedProperties) {
         
+    }
+
+    change(event){
+        let formData = {};
+        let name =  event.target.name;
+        let value = (event.target.type === 'checkbox') ? event.target.checked : event.target.value;
+
+        formData[name] = value;
+        this.formData = Object.assign(this.formData, formData);
+
+        console.log(this.formData);
     }
 
     render() {
@@ -124,9 +141,9 @@ export default class FormPopup extends LitElement {
             }
         </style>
         <section class="form-popup ${(this.popupOpen) ? 'active' : ''}">
-            <form>
+            <form @submit="${this.saveContact.bind(null, this.formData)}">
 
-                <div class="closing-btn">
+                <div class="closing-btn" @click="${this.togglePopup}">
                     <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="times" class="svg-inline--fa fa-times fa-w-11" role="img" viewBox="0 0 352 512"><path fill="currentColor" d="M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z"/></svg>
                 </div>
 
@@ -134,37 +151,37 @@ export default class FormPopup extends LitElement {
 
                 <div class="form-group first-name">
                     <label for="first_name">First Name</label>
-                    <input type="text" name="first_name">
+                    <input type="text" name="first_name" @keyup="${this.change}">
                 </div>
                 
                 <div class="form-group last-name">
                     <label for="last_name">Last Name</label>
-                    <input type="text" name="last_name">
+                    <input type="text" name="last_name" @keyup="${this.change}">
                 </div>
 
                 <div class="form-group address-1">
                     <label for="address_1">Address #1</label>
-                    <input type="text" name="address_1">
+                    <input type="text" name="address_1" @keyup="${this.change}">
                 </div>
 
                 <div class="form-group address-2">
                     <label for="address_1">Address #2</label>
-                    <input type="text" name="address_2">
+                    <input type="text" name="address_2" @keyup="${this.change}">
                 </div>
 
                 <div class="form-group city">
                     <label for="city">City</label>
-                    <input type="text" name="city">
+                    <input type="text" name="city" @keyup="${this.change}">
                 </div>
 
                 <div class="form-group state">
                     <label for="state">State</label>
-                    <input type="text" name="state">
+                    <input type="text" name="state" @keyup="${this.change}">
                 </div>
 
                 <div class="form-group zipcode">
                     <label for="zipcode">Zipcode</label>
-                    <input type="text" name="zipcode">
+                    <input type="text" name="zipcode" @keyup="${this.change}">
                 </div>
 
                 <div class="form-group button">

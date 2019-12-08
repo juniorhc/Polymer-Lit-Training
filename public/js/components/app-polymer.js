@@ -12,7 +12,8 @@ class CounterComp extends LitElement {
                 type: Boolean,
                 value: false,
                 notify: false
-            }
+            },
+            allContacts: Array
         };
     }
 
@@ -20,6 +21,8 @@ class CounterComp extends LitElement {
         super();
         this.popupOpen = false;
         this.togglePopup = this.togglePopup.bind(this);
+        this.saveContact = this.saveContact.bind(this);
+        this.allContacts = [];
     }
 
     togglePopup() {
@@ -27,6 +30,20 @@ class CounterComp extends LitElement {
         console.log("click");
         console.log(this.popupOpen);
         this.requestUpdate();
+    }
+    
+    saveContact(contact, event){
+        event.preventDefault();
+        console.log("saved contact");
+        console.log(contact);
+        
+        function immutablePush(arr, newEntry){
+            return [ ...arr, newEntry];
+        }
+        let newArray = immutablePush(this.allContacts, contact);
+        this.allContacts = newArray
+        console.log('==============================');
+        console.log(this.allContacts);
     }
 
     render() {
@@ -42,7 +59,7 @@ class CounterComp extends LitElement {
 
             <div class="main-page">
                 <side-menu .togglePopup="${this.togglePopup}"></side-menu>
-                <content-area .popupOpen="${this.popupOpen}" .togglePopup="${this.togglePopup}"></content-area>
+                <content-area .popupOpen="${this.popupOpen}" .togglePopup="${this.togglePopup}" .saveContact="${this.saveContact}"></content-area>
             </div>
         `
     }

@@ -15,7 +15,7 @@ export default class SideMenu extends LitElement {
     }
 
 
-    firstUpdated(changedProperties) {
+    firstUpdated(changedProperties) { 
 
     }
 
