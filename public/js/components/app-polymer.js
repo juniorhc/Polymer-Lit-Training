@@ -1,29 +1,32 @@
 import { LitElement, html } from 'https://unpkg.com/@polymer/lit-element@latest/lit-element.js?module';
-// import { LitElement, html } from '../lit-element.js?module';
+// import { LitElement, html } from 'lit-element';
 import SideMenu from '/js/components/SideMenu.js';
 import ContentArea from '/js/components/ContentArea.js';
 
 class CounterComp extends LitElement {
-    constructor() {
-        super();
-        this.total = {
-            number: 0
-        }
-        this.popupOpen = false;
-        this.addContactClick = this.addContactClick.bind(true);
-    }
+
 
     static get properties() {
         return {
-            total: Object
-        }
+            popupOpen: {
+                type: Boolean,
+                value: false,
+                notify: false
+            }
+        };
     }
 
-    firstUpdated(changedProperties) {
-
+    constructor() {
+        super();
+        this.popupOpen = false;
+        this.togglePopup = this.togglePopup.bind(this);
     }
-    addContactClick() {
+
+    togglePopup() {
+        this.popupOpen = !this.popupOpen;
         console.log("click");
+        console.log(this.popupOpen);
+        this.requestUpdate();
     }
 
     render() {
@@ -38,8 +41,8 @@ class CounterComp extends LitElement {
             </style>
 
             <div class="main-page">
-                <side-menu .addContactClick="${this.addContactClick}"></side-menu>
-                <content-area .popupOpen="${this.popupOpen}"></content-area>
+                <side-menu .togglePopup="${this.togglePopup}"></side-menu>
+                <content-area .popupOpen="${this.popupOpen}" .togglePopup="${this.togglePopup}"></content-area>
             </div>
         `
     }

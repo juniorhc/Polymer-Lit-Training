@@ -9,13 +9,13 @@ export default class SideMenu extends LitElement {
     }
 
     static get properties() {
-        return {   
-            addContactClick: Function
+        return {
+            togglePopup: Function
         }
     }
 
 
-    firstUpdated(changedProperties) { 
+    firstUpdated(changedProperties) {
 
     }
 
@@ -59,7 +59,7 @@ export default class SideMenu extends LitElement {
     <div class="menu">
     <div class="title"> Contacts </div>
     <nav>
-        <a href="#" @click="${this.addContactClick}"><span class="icon"> + </span> Add Contact </a>
+        <a href="#" @click="${this.togglePopup}"><span class="icon"> + </span> Add Contact </a>
         <a href="#"><span class="icon"> + </span> Add Contact </a>
         <a href="#"><span class="icon"> + </span> Add Contact </a>
         <a href="#"><span class="icon"> + </span> Add Contact </a>
