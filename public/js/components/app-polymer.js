@@ -32,8 +32,8 @@ class CounterComp extends LitElement {
         this.requestUpdate();
     }
     
-    saveContact(contact, event){
-        event.preventDefault();
+    saveContact(contact){
+        // event.preventDefault();
         console.log("saved contact");
         console.log(contact);
         
@@ -42,6 +42,7 @@ class CounterComp extends LitElement {
         }
         let newArray = immutablePush(this.allContacts, contact);
         this.allContacts = newArray
+        this.togglePopup()
         console.log('==============================');
         console.log(this.allContacts);
     }
@@ -59,7 +60,7 @@ class CounterComp extends LitElement {
 
             <div class="main-page">
                 <side-menu .togglePopup="${this.togglePopup}"></side-menu>
-                <content-area .popupOpen="${this.popupOpen}" .togglePopup="${this.togglePopup}" .saveContact="${this.saveContact}"></content-area>
+                <content-area .popupOpen="${this.popupOpen}" .togglePopup="${this.togglePopup}" .saveContact="${this.saveContact}" .allContacts=${this.allContacts}></content-area>
             </div>
         `
     }
