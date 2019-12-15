@@ -33,9 +33,15 @@ export default class FormPopup extends LitElement {
 
     submitForm(event){
         event.preventDefault();
+        console.log(this.shadowRoot.querySelectorAll("input"))
+        var elements = this.shadowRoot.querySelectorAll("input")
+        for(var i = 0; i < elements.length; i++){
+            if(elements[i].type == "text"){
+                elements[i].value = "";
+            }
+        }
         this.saveContact(this.formData);
         this.formData = {};
-
     }
 
     change(event){

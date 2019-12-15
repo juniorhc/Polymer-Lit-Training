@@ -22,6 +22,7 @@ class CounterComp extends LitElement {
         this.popupOpen = false;
         this.togglePopup = this.togglePopup.bind(this);
         this.saveContact = this.saveContact.bind(this);
+        this.deleteContact = this.deleteContact.bind(this);
         this.allContacts = [];
     }
 
@@ -47,6 +48,17 @@ class CounterComp extends LitElement {
         console.log(this.allContacts);
     }
 
+    deleteContact(contact){
+
+        function immutableDelete (arr, index){
+            return arr.slice(0,index).concat(arr.slice(index+1))
+        }
+
+        const newArray = immutableDelete(this.allContacts, contact)
+        this.allContacts = newArray
+        console.log(contact);
+    }
+
     render() {
         const { color, background, fontWeight } = this;
         return html`
@@ -60,7 +72,8 @@ class CounterComp extends LitElement {
 
             <div class="main-page">
                 <side-menu .togglePopup="${this.togglePopup}"></side-menu>
-                <content-area .popupOpen="${this.popupOpen}" .togglePopup="${this.togglePopup}" .saveContact="${this.saveContact}" .allContacts=${this.allContacts}></content-area>
+                <content-area .popupOpen="${this.popupOpen}" .togglePopup="${this.togglePopup}" .saveContact="${this.saveContact}" 
+                    .allContacts=${this.allContacts} .deleteContact="${this.deleteContact}"></content-area>
             </div>
         `
     }

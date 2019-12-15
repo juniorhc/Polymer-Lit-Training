@@ -60,9 +60,6 @@ export default class SideMenu extends LitElement {
     <div class="title"> Contacts </div>
     <nav>
         <a href="#" @click="${this.togglePopup}"><span class="icon"> + </span> Add Contact </a>
-        <a href="#"><span class="icon"> + </span> Add Contact </a>
-        <a href="#"><span class="icon"> + </span> Add Contact </a>
-        <a href="#"><span class="icon"> + </span> Add Contact </a>
     </nav>
     </div>
 </section>

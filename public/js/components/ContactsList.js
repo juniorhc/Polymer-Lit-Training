@@ -6,17 +6,48 @@ export default class ContactsList extends LitElement {
         this.total = {
             number: 0
         };
+        this.displayAllContacts = this.displayAllContacts.bind(this);
     }
 
     static get properties() {
         return {
-            total: Object
+            total: Object,
+            allContacts: Array,
+            deleteContact: Function
         }
     }
 
-
     firstUpdated(changedProperties) {
+    }
 
+    displayAllContacts(){
+        return this.allContacts.map((contact, index) => {
+            return html `
+                <div class="contact"> 
+                    <div class="user-img"></div>
+                    <div class="fullname"> 
+                        <span class="text">${contact.first_name} ${contact.last_name} </span>
+                        <span class="sub">Full Name</span>
+                    </div>
+                    <div class="number"> 
+                        <span class="text">${contact.phone_number}</span>
+                        <span class="sub">Phone Number</span>
+                    </div>
+                    <div class="state"> 
+                        <span class="text">${contact.state}</span>
+                        <span class="sub">State</span>
+                    </div>
+                    <div class="category"> 
+                        <span class="text">${contact.category}</span>
+                        <span class="sub">Category</span>
+                    </div>
+                    <div class="delete-btn" @click="${this.deleteContact.bind(null, index)}"> 
+                        Delete
+                    </div>
+
+                </div>
+            `
+        })
     }
 
     render() {
@@ -41,6 +72,8 @@ export default class ContactsList extends LitElement {
             border-radius: 10px;
             transition: all .4s ease-in-out;
             cursor: pointer;
+            position: relative;
+            overflow: hidden;
         }
         .contact:hover{
             -webkit-box-shadow: 0px 4px 77px -17px rgba(0,0,0,0.36);
@@ -79,48 +112,33 @@ export default class ContactsList extends LitElement {
             font-weight: 500;
             
         }
+        .delete-btn{
+            position: absolute;
+            right: 0;
+            height: 100%;
+            padding: 20px;
+            color: white;
+            background: red;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            -webkit-border-top-right-radius: 10px;
+            -webkit-border-bottom-right-radius: 10px;
+            -moz-border-radius-topright: 10px;
+            -moz-border-radius-bottomright: 10px;
+            border-top-right-radius: 10px;
+            border-bottom-right-radius: 10px;
+            transform: translate3d(100%, 0, 0);
+            transition: all .4s ease-in-out;
+        }
+        .contact:hover .delete-btn{
+            transform: translate3d(0, 0, 0);
+        }
 </style>
     <section class="contacts">
         <h2>Contacts</h2>
-        <div class="contact"> 
-            <div class="user-img"></div>
-            <div class="fullname"> 
-                <span class="text">Joe Santos Garcia 123</span>
-                <span class="sub">Full Name</span>
-            </div>
-            <div class="number"> 
-                <span class="text">123 - 456 - 789</span>
-                <span class="sub">Phone Number</span>
-            </div>
-            <div class="state"> 
-                <span class="text">NY</span>
-                <span class="sub">State</span>
-            </div>
-            <div class="category"> 
-                <span class="text">Family</span>
-                <span class="sub">Category</span>
-            </div>
-        </div>
+        ${this.displayAllContacts()}
 
-        <div class="contact"> 
-        <div class="user-img"></div>
-        <div class="fullname"> 
-            <span class="text">Joe Santos Garcia 123</span>
-            <span class="sub">Full Name</span>
-        </div>
-        <div class="number"> 
-            <span class="text">123 - 456 - 789</span>
-            <span class="sub">Phone Number</span>
-        </div>
-        <div class="state"> 
-            <span class="text">NY</span>
-            <span class="sub">State</span>
-        </div>
-        <div class="category"> 
-            <span class="text">Family</span>
-            <span class="sub">Category</span>
-        </div>
-    </div>
     </section>
 `
     }
